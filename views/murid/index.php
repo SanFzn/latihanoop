@@ -46,7 +46,7 @@ $flash = getFlash();
         <td><?= $row['jurusan'] ?></td>
         <td>
             <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-            <a href="../proses/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
+            <a href="../../proses/murid/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
         </td>
     </tr>
     <?php endwhile; ?>
