@@ -1,12 +1,15 @@
 <?php
 include '../../config/Database.php';
 include '../../models/Murid.php';
+include '../../config/Helper.php';
 
 $db = new Database();
 $conn = $db->connect();
 
 $murid = new Murid($conn);
 $data = $murid->getAll();
+
+$flash = getFlash();
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +21,14 @@ $data = $murid->getAll();
 <body class="container mt-4">
 
 <h2>Data Murid</h2>
+
+<?php if($flash) : ?>
+    <div class="alert alert-<?= $flash['tipe']; ?> alert-dismissible fade show" role="alert">
+        <?= $flash['pesan']; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+<?php endif; ?>
+
 <a href="tambah.php" class="btn btn-primary mb-3">Tambah</a>
 
 <table class="table table-bordered">
@@ -41,5 +52,6 @@ $data = $murid->getAll();
     <?php endwhile; ?>
 </table>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
