@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tambah Murid</title>
+    <title>Tambah Guru</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="container mt-4">
 
 <h2>Tambah Data</h2>
 
-<form action="../../proses/murid/tambah.php" method="POST">
+<form action="../../proses/guru/tambah.php" method="POST">
     <div class="mb-3">
         <label>Nama</label>
         <input type="text" name="nama" class="form-control" required>
     </div>
 
     <div class="mb-3">
-        <label>Jurusan</label>
-        <input type="text" name="jurusan" class="form-control" required>
+        <label>NIP</label>
+        <input type="text" name="nip" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Mapel</label>
+        <input type="text" name="mapel" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Jabatan</label>
+        <input type="text" name="jabatan" class="form-control" required>
     </div>
 
     <button type="submit" class="btn btn-success">Simpan</button>
