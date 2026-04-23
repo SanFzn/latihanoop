@@ -30,8 +30,16 @@ $data = $guru->getById($id);
     </div>
 
     <div class="mb-3">
+        <label>Jenis Kelamin</label>
+        <select name="jeniskelamin" class="form-control" required>
+            <option value="L" <?= $data['jenis_kelamin'] == 'L' ? 'selected' : '' ?>>Laki-laki</option>
+            <option value="P" <?= $data['jenis_kelamin'] == 'P' ? 'selected' : '' ?>>Perempuan</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
         <label>NIP</label>
-        <input type="text" name="nip" class="form-control" value="<?= $data['nip'] ?>" required>
+        <input type="text" name="nip" class="form-control" value="<?= $data['nip'] ?>" pattern="[0-9]+" inputmode="numeric" maxlength="18" title="Hanya angka" required>
     </div>
 
     <div class="mb-3">

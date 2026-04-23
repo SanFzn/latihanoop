@@ -16,7 +16,14 @@
 
     <div class="mb-3">
         <label>Jurusan</label>
-        <input type="text" name="jurusan" class="form-control" required>
+        <select name="jurusan" class="form-control" required>
+            <option value="">Pilih Jurusan</option>
+            <option value="Kuliner">Kuliner</option>
+            <option value="Perhotelan">Perhotelan</option>
+            <option value="MPLB">MPLB</option>
+            <option value="PPLG">PPLG</option>
+            <option value="Busana">Busana</option>
+        </select>
     </div>
 
     <button type="submit" class="btn btn-success">Simpan</button>

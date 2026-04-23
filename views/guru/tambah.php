@@ -15,8 +15,17 @@
     </div>
 
     <div class="mb-3">
+        <label>Jenis Kelamin</label>
+        <select name="jeniskelamin" class="form-control" required>
+            <option value="">Pilih Jenis Kelamin</option>
+            <option value="L">Laki-laki</option>
+            <option value="P">Perempuan</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
         <label>NIP</label>
-        <input type="text" name="nip" class="form-control" required>
+        <input type="text" name="nip" class="form-control" pattern="[0-9]+" inputmode="numeric" maxlength="18" title="Hanya angka" required>
     </div>
 
     <div class="mb-3">

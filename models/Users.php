@@ -1,7 +1,7 @@
 <?php
-class Guru {
+class Users {
     private $conn;
-    private $table = "guru";
+    private $table = "users";
 
     public function __construct($db)
     {
@@ -15,16 +15,10 @@ class Guru {
     }
 
     //CREATE
-    public function create($nama, $jeniskelamin, $nip, $mapel, $jabatan) {
-        if (!in_array($jeniskelamin, ['L', 'P'])) {
-            return false;
-        }
-        if (!preg_match('/^[0-9]+$/', $nip)) {
-            return false;
-        }
-        $query = "INSERT INTO $this->table (nama, jenis_kelamin, nip, mapel, jabatan) VALUES (?, ?, ?, ?, ?)";
+    public function create($username, $password, $role) {
+        $query = "INSERT INTO $this->table (username, password, role) VALUES (?, ?, ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("ssiss", $nama, $jeniskelamin, $nip, $mapel, $jabatan);
+        $stmt->bind_param("sss", $username, $password, $role);
         return $stmt->execute();
     }
 
@@ -38,16 +32,10 @@ class Guru {
     }
 
     //UPDATE
-    public function update($id, $nama, $jeniskelamin, $nip, $mapel, $jabatan) {
-        if (!in_array($jeniskelamin, ['L', 'P'])) {
-            return false;
-        }
-        if (!preg_match('/^[0-9]+$/', $nip)) {
-            return false;
-        }
-        $query = "UPDATE $this->table SET nama=?, jenis_kelamin=?, nip=?, mapel=?, jabatan=? WHERE id=?";
+    public function update($id, $username, $password, $role) {
+        $query = "UPDATE $this->table SET username=?, password=?, role=? WHERE id=?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("ssissi", $nama, $jeniskelamin, $nip, $mapel, $jabatan, $id);
+        $stmt->bind_param("sssi", $username, $password, $role, $id);
         return $stmt->execute();
     }
 
@@ -63,7 +51,7 @@ class Guru {
     public function countAll($keyword = null) {
         if ($keyword) {
             $query = "SELECT COUNT(*) as total FROM $this->table
-                    WHERE nama LIKE ? OR mapel LIKE ?";
+                      WHERE username LIKE ? OR role LIKE ?";
             $stmt = $this->conn->prepare($query);
             $like = "%$keyword%";
             $stmt->bind_param("ss", $like, $like);
@@ -79,8 +67,8 @@ class Guru {
     public function getData($start, $limit, $keyword = null) {
         if ($keyword) {
             $query = "SELECT * FROM $this->table
-                    WHERE nama LIKE ? OR mapel LIKE ?
-                    LIMIT ?, ?";
+                      WHERE username LIKE ? OR role LIKE ?
+                      LIMIT ?, ?";
             $stmt = $this->conn->prepare($query);
             $like = "%$keyword%";
             $stmt->bind_param("ssii", $like, $like, $start, $limit);

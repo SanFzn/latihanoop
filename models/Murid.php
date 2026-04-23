@@ -16,6 +16,9 @@ class Murid {
 
     //CREATE
     public function create($nama, $jurusan) {
+        if (!in_array($jurusan, ['Kuliner', 'Perhotelan', 'MPLB', 'PPLG', 'Busana'])) {
+            return false;
+        }
         $query = "INSERT INTO $this->table (nama, jurusan) VALUES (?, ?)";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("ss", $nama, $jurusan);
@@ -33,6 +36,9 @@ class Murid {
 
     //UPDATE
     public function update($id, $nama, $jurusan) {
+        if (!in_array($jurusan, ['Kuliner', 'Perhotelan', 'MPLB', 'PPLG', 'Busana'])) {
+            return false;
+        }
         $query = "UPDATE $this->table SET nama=?, jurusan=? WHERE id=?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("ssi", $nama, $jurusan, $id);
@@ -51,7 +57,7 @@ class Murid {
     public function countAll($keyword = null) {
         if ($keyword) {
             $query = "SELECT COUNT(*) as total FROM $this->table
-                      WHERE nama LIKE ? OR jurusan LIKE ?";
+                    WHERE nama LIKE ? OR jurusan LIKE ?";
             $stmt = $this->conn->prepare($query);
             $like = "%$keyword%";
             $stmt->bind_param("ss", $like, $like);
@@ -67,8 +73,8 @@ class Murid {
     public function getData($start, $limit, $keyword = null) {
         if ($keyword) {
             $query = "SELECT * FROM $this->table
-                      WHERE nama LIKE ? OR jurusan LIKE ?
-                      LIMIT ?, ?";
+                    WHERE nama LIKE ? OR jurusan LIKE ?
+                    LIMIT ?, ?";
             $stmt = $this->conn->prepare($query);
             $like = "%$keyword%";
             $stmt->bind_param("ssii", $like, $like, $start, $limit);
