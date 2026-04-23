@@ -10,24 +10,28 @@ class Murid {
 
     //READ
     public function getAll() {
-        $query = "SELECT * FROM $this->table";
+        $query = "SELECT m.*, j.nama AS nama_jurusan, k.nama AS nama_kelas 
+        FROM $this->table m
+        LEFT JOIN jurusan j ON m.id_jurusan = j.id
+        LEFT JOIN kelas k ON m.id_kelas = k.id";
         return $this->conn->query($query);
     }
 
     //CREATE
-    public function create($nama, $jurusan) {
-        if (!in_array($jurusan, ['Kuliner', 'Perhotelan', 'MPLB', 'PPLG', 'Busana'])) {
-            return false;
-        }
-        $query = "INSERT INTO $this->table (nama, jurusan) VALUES (?, ?)";
+    public function create($nama, $id_jurusan, $id_kelas) {
+        $query = "INSERT INTO $this->table (nama, id_jurusan, id_kelas) VALUES (?, ?, ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("ss", $nama, $jurusan);
+        $stmt->bind_param("sii", $nama, $id_jurusan, $id_kelas);
         return $stmt->execute();
     }
 
     //GET BY ID
     public function getById($id) {
-        $query = "SELECT * FROM $this->table WHERE id=?";
+        $query = "SELECT m.*, j.nama AS nama_jurusan, k.nama AS nama_kelas
+        FROM $this->table m
+        LEFT JOIN jurusan j ON m.id_jurusan = j.id
+        LEFT JOIN kelas k ON m.id_kelas = k.id
+        WHERE m.id=?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -35,13 +39,10 @@ class Murid {
     }
 
     //UPDATE
-    public function update($id, $nama, $jurusan) {
-        if (!in_array($jurusan, ['Kuliner', 'Perhotelan', 'MPLB', 'PPLG', 'Busana'])) {
-            return false;
-        }
-        $query = "UPDATE $this->table SET nama=?, jurusan=? WHERE id=?";
+    public function update($id, $nama, $id_jurusan, $id_kelas) {
+        $query = "UPDATE $this->table SET nama=?, id_jurusan=?, id_kelas=? WHERE id=?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("ssi", $nama, $jurusan, $id);
+        $stmt->bind_param("siii", $nama, $id_jurusan, $id_kelas, $id);
         return $stmt->execute();
     }
 

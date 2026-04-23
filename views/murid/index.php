@@ -25,7 +25,7 @@ $flash = getFlash();
 
 <!DOCTYPE html>
 <html>
-<hea>
+<head>
     <title>Data Siswa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
@@ -59,7 +59,7 @@ $flash = getFlash();
         }
     </style>
 
-</hea>
+</head>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
@@ -87,7 +87,7 @@ $flash = getFlash();
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="logout.php">
+                        <a class="nav-link" href="../../auth/logout.php">
                             <i class="bi bi-box-arrow-right me-1"></i>Logout (<?= $_SESSION['username']; ?>)
                         </a>
                     </li>
@@ -120,6 +120,7 @@ $flash = getFlash();
                 <th>No</th>
                 <th>Nama</th>
                 <th>Jurusan</th>
+                <th>Kelas</th>
                 <th>Aksi</th>
             </tr>
 
@@ -128,6 +129,7 @@ $flash = getFlash();
                 <td><?= $no++ ?></td>
                 <td><?= $row['nama'] ?></td>
                 <td><?= $row['jurusan'] ?></td>
+                <td><?= $row['kelas'] ?></td>
                 <td>
                     <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
                     <a href="../../proses/murid/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>

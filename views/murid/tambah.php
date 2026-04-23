@@ -20,9 +20,9 @@
             <option value="">Pilih Jurusan</option>
             <option value="Kuliner">Kuliner</option>
             <option value="Perhotelan">Perhotelan</option>
-            <option value="MPLB">MPLB</option>
+            <option value="MPLB">Busana</option>
             <option value="PPLG">PPLG</option>
-            <option value="Busana">Busana</option>
+            <option value="Busana">MPLB</option>
         </select>
     </div>
 
