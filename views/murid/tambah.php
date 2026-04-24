@@ -14,18 +14,6 @@
         <input type="text" name="nama" class="form-control" required>
     </div>
 
-    <div class="mb-3">
-        <label>Jurusan</label>
-        <select name="jurusan" class="form-control" required>
-            <option value="">Pilih Jurusan</option>
-            <option value="Kuliner">Kuliner</option>
-            <option value="Perhotelan">Perhotelan</option>
-            <option value="MPLB">Busana</option>
-            <option value="PPLG">PPLG</option>
-            <option value="Busana">MPLB</option>
-        </select>
-    </div>
-
     <button type="submit" class="btn btn-success">Simpan</button>
     <a href="index.php" class="btn btn-secondary">Kembali</a>
 </form>

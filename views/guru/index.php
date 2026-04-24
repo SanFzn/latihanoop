@@ -87,8 +87,8 @@ $flash = getFlash();
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="logout.php">
-                            <i class="bi bi-box-arrow-right me-1"></i>Logout (<?= $_SESSION['username']; ?>)
+                        <a class="nav-link" href="../../auth/logout.php">
+                            <i class="bi bi-box-arrow-right me-1"></i>Logout (<?= htmlspecialchars($_SESSION['username']); ?>)
                         </a>
                     </li>
                 </ul>
@@ -110,7 +110,7 @@ $flash = getFlash();
         <a href="tambah.php" class="btn btn-primary mb-3">Tambah</a>
 
         <form method="GET" class="mb-3 d-flex">
-            <input type="text" name="search" class="form-control me-2" placeholder="Cari data..." value="<?= $keyword ?>">
+            <input type="text" name="search" class="form-control me-2" placeholder="Cari data..." value="<?= htmlspecialchars($keyword) ?>">
             <button class="btn btn-primary">Cari</button>
             <a href="index.php" class="btn btn-secondary ms-2">Reset</a>
         </form>
@@ -119,27 +119,25 @@ $flash = getFlash();
             <tr>
                 <th>No</th>
                 <th>Nama</th>
-                <th>Jenis Kelamin</th>
-                <th>NIP</th>
-                <th>Mapel</th>
-                <th>Jabatan</th>
                 <th>Aksi</th>
             </tr>
 
-            <?php $no = 1; while($row = $data->fetch_assoc()) : ?>
-            <tr>
-                <td><?= $no++ ?></td>
-                <td><?= $row['nama'] ?></td>
-                <td><?= $row['jenis_kelamin'] == 'L' ? 'Laki-laki' : 'Perempuan' ?></td>
-                <td><?= $row['nip'] ?></td>
-                <td><?= $row['mapel'] ?></td>
-                <td><?= $row['jabatan'] ?></td>
-                <td>
-                    <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="../../proses/guru/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
-                </td>
-            </tr>
-            <?php endwhile; ?>
+            <?php $no = 1; if ($data->num_rows > 0) : ?>
+                <?php while($row = $data->fetch_assoc()) : ?>
+                <tr>
+                    <td><?= $no++ ?></td>
+                    <td><?= htmlspecialchars($row['nama']) ?></td>
+                    <td>
+                        <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="../../proses/guru/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
+                    </td>
+                </tr>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="3" class="text-center">Data tidak ditemukan.</td>
+                </tr>
+            <?php endif; ?>
         </table>
 
         <nav>
@@ -148,7 +146,7 @@ $flash = getFlash();
         <?php for($i = 1; $i <= $pagination['total_page']; $i++) : ?>
             <li class="page-item <?= $i == $pagination['current'] ? 'active' : '' ?>">
                 <a class="page-link"
-                    href="?page=<?= $i ?>&search=<?= $keyword ?>">
+                    href="?page=<?= $i ?>&search=<?= urlencode($keyword) ?>">
                 <?= $i ?>
                 </a>
             </li>

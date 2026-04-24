@@ -9,12 +9,8 @@ $conn = $db->connect();
 $guru = new Guru ($conn);
 
 $nama = $_POST['nama'];
-$jeniskelamin = $_POST['jeniskelamin'];
-$nip = $_POST['nip'];
-$mapel = $_POST['mapel'];
-$jabatan = $_POST['jabatan'];
 
-if ($guru->create($nama, $jeniskelamin, $nip, $mapel, $jabatan)) {
+if ($guru->create($nama)) {
     setFlash("Data berhasil ditambahkan", "success");
 } else {
     setFlash("Data gagal ditambahkan", "danger");

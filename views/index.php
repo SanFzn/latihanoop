@@ -163,7 +163,7 @@ if (!isset($_SESSION['username'])) {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="logout.php">
+                        <a class="nav-link" href="../../auth/logout.php">
                             <i class="bi bi-box-arrow-right me-1"></i>Logout (<?= $_SESSION['username']; ?>)
                         </a>
                     </li>

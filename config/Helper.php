@@ -38,4 +38,8 @@ function paginate($totalData, $limit = 10) {
         'total_page' => $totalPage
     ];
 }
+
+define('BASE_URL', 'http://localhost/latihanoop/');
+
+
 ?>

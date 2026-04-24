@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../../config/Database.php';
 include '../../config/Helper.php';
 
@@ -24,7 +25,7 @@ if ($data) {
 } else {
     echo "<script>
             alert('Username atau Password salah!');
-            window.location.href='../../../login.php';
+            window.location.href='login.php';
             </script>";
 }
 ?>

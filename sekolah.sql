@@ -29,11 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `guru` (
   `id` int(11) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `jenis_kelamin` enum('L','P') NOT NULL,
-  `nip` int(18) NOT NULL,
-  `id_mapel` int(11) DEFAULT NULL,
-  `jabatan` varchar(100) NOT NULL
+  `nama` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -120,14 +116,11 @@ INSERT INTO `mapel` (`id`, `nama`) VALUES
 
 CREATE TABLE `murid` (
   `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `id_jurusan` int(11) DEFAULT NULL,
-  `id_kelas` int(11) DEFAULT NULL
+  `nama` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
---
 -- Struktur dari tabel `users`
 --
 

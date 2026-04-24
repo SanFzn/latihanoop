@@ -4,12 +4,12 @@ include '../../models/Murid.php';
 
 $db = new Database();
 $conn = $db->connect();
-
 $murid = new Murid($conn);
 
 $id = $_GET['id'];
 $data = $murid->getById($id);
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -22,16 +22,11 @@ $data = $murid->getById($id);
 <h2>Edit Data</h2>
 
 <form action="../../proses/murid/edit.php" method="POST">
-    <input type="hidden" name="id" value="<?= $data['id'] ?>">
+    <input type="hidden" name="id" value="<?= htmlspecialchars($data['id']) ?>">
 
     <div class="mb-3">
         <label>Nama</label>
-        <input type="text" name="nama" class="form-control" value="<?= $data['nama'] ?>" required>
-    </div>
-
-    <div class="mb-3">
-        <label>Jurusan</label>
-        <input type="text" name="jurusan" class="form-control" value="<?= $data['jurusan'] ?>" required>
+        <input type="text" name="nama" class="form-control" value="<?= htmlspecialchars($data['nama']) ?>" required>
     </div>
 
     <button type="submit" class="btn btn-primary">Update</button>

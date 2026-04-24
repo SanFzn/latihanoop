@@ -1,23 +1,22 @@
 <?php
 include '../../config/Database.php';
-include '../../models/Murid.php';
+include '../../models/Guru.php';
 include '../../config/Helper.php';
 
 $db = new Database();
 $conn = $db->connect();
 $keyword = get('search');
 
-$murid = new Murid($conn);
+$guru = new Guru($conn);
 
 //Hitung total data
-$totalData = $murid->countAll($keyword);
+$totalData = $guru->countAll($keyword);
 
 //Pagination
 $pagination = paginate($totalData, 10);
 
-
 //Ambil Data
-$data = $murid->getData($pagination['start'], $pagination['limit'], $keyword);
+$data = $guru->getData($pagination['start'], $pagination['limit'], $keyword);
 
 //Ambil notifikasi
 $flash = getFlash();
@@ -26,7 +25,7 @@ $flash = getFlash();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Data Siswa</title>
+    <title>Data Guru</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <style>
@@ -89,7 +88,7 @@ $flash = getFlash();
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../../auth/logout.php">
-                            <i class="bi bi-box-arrow-right me-1"></i>Logout (<?= $_SESSION['username']; ?>)
+                            <i class="bi bi-box-arrow-right me-1"></i>Logout (<?= htmlspecialchars($_SESSION['username']); ?>)
                         </a>
                     </li>
                 </ul>
@@ -99,7 +98,7 @@ $flash = getFlash();
 
     <!-- Main Content -->
     <div class="container main-container">
-        <h2>Data Murid</h2>
+        <h2>Data Guru</h2>
 
         <?php if($flash) : ?>
             <div class="alert alert-<?= $flash['tipe']; ?> alert-dismissible fade show" role="alert">
@@ -120,6 +119,10 @@ $flash = getFlash();
             <tr>
                 <th>No</th>
                 <th>Nama</th>
+                <th>Jenis Kelamin</th>
+                <th>NIP</th>
+                <th>Mapel</th>
+                <th>Jabatan</th>
                 <th>Aksi</th>
             </tr>
 
@@ -128,15 +131,19 @@ $flash = getFlash();
                 <tr>
                     <td><?= $no++ ?></td>
                     <td><?= htmlspecialchars($row['nama']) ?></td>
+                    <td><?= $row['jenis_kelamin'] == 'L' ? 'Laki-laki' : 'Perempuan' ?></td>
+                    <td><?= htmlspecialchars($row['nip']) ?></td>
+                    <td><?= htmlspecialchars($row['nama_mapel'] ?? '-') ?></td>
+                    <td><?= htmlspecialchars($row['jabatan']) ?></td>
                     <td>
                         <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="../../proses/murid/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
+                        <a href="../../proses/guru/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
                     </td>
                 </tr>
                 <?php endwhile; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="3" class="text-center">Data tidak ditemukan.</td>
+                    <td colspan="7" class="text-center">Data tidak ditemukan.</td>
                 </tr>
             <?php endif; ?>
         </table>
@@ -146,8 +153,8 @@ $flash = getFlash();
 
         <?php for($i = 1; $i <= $pagination['total_page']; $i++) : ?>
             <li class="page-item <?= $i == $pagination['current'] ? 'active' : '' ?>">
-                <a class="page-link" 
-                href="?page=<?= $i ?>&search=<?= urlencode($keyword) ?>">
+                <a class="page-link"
+                    href="?page=<?= $i ?>&search=<?= urlencode($keyword) ?>">
                 <?= $i ?>
                 </a>
             </li>
@@ -155,7 +162,6 @@ $flash = getFlash();
 
         </ul>
         </nav>
-        <!-- <a href="../index.php" class="btn btn-secondary">Kembali</a> -->
     </div>
 
 
