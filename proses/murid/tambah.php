@@ -6,12 +6,11 @@ include '../../config/Helper.php';
 $db = new Database();
 $conn = $db->connect();
 
-$murid = new Murid ($conn);
+$murid = new Murid($conn);
 
 $nama = $_POST['nama'];
-$jurusan = $_POST['jurusan'];
 
-if ($murid->create($nama, $jurusan)) {
+if ($murid->create($nama)) {
     setFlash("Data berhasil ditambahkan", "success");
 } else {
     setFlash("Data gagal ditambahkan", "danger");

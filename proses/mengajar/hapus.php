@@ -8,13 +8,12 @@ $conn = $db->connect();
 
 $guru = new Guru($conn);
 
-$nama = $_POST['nama'];
-$jabatan = $_POST['jabatan'];
+$id = $_GET['id'];
 
-if ($guru->create($nama, $jabatan)) {
-    setFlash("Data berhasil ditambahkan", "success");
+if ($guru->delete($id)) {
+    setFlash("Data berhasil dihapus", "success");
 } else {
-    setFlash("Data gagal ditambahkan", "danger");
+    setFlash("Data gagal dihapus", "danger");
 }
 
 header("Location: ../../views/guru/index.php");

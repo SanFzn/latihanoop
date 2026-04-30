@@ -10,28 +10,21 @@ class Murid {
 
     //READ
     public function getAll() {
-        $query = "SELECT m.*, j.nama AS nama_jurusan, k.nama AS nama_kelas 
-        FROM $this->table m
-        LEFT JOIN jurusan j ON m.id_jurusan = j.id
-        LEFT JOIN kelas k ON m.id_kelas = k.id";
+        $query = "SELECT * FROM $this->table ORDER BY nama";
         return $this->conn->query($query);
     }
 
     //CREATE
-    public function create($nama, $id_jurusan, $id_kelas) {
-        $query = "INSERT INTO $this->table (nama, id_jurusan, id_kelas) VALUES (?, ?, ?)";
+    public function create($nama) {
+        $query = "INSERT INTO $this->table (nama) VALUES (?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("sii", $nama, $id_jurusan, $id_kelas);
+        $stmt->bind_param("s", $nama);
         return $stmt->execute();
     }
 
     //GET BY ID
     public function getById($id) {
-        $query = "SELECT m.*, j.nama AS nama_jurusan, k.nama AS nama_kelas
-        FROM $this->table m
-        LEFT JOIN jurusan j ON m.id_jurusan = j.id
-        LEFT JOIN kelas k ON m.id_kelas = k.id
-        WHERE m.id=?";
+        $query = "SELECT * FROM $this->table WHERE id=?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -39,10 +32,10 @@ class Murid {
     }
 
     //UPDATE
-    public function update($id, $nama, $id_jurusan, $id_kelas) {
-        $query = "UPDATE $this->table SET nama=?, id_jurusan=?, id_kelas=? WHERE id=?";
+    public function update($id, $nama) {
+        $query = "UPDATE $this->table SET nama=? WHERE id=?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("siii", $nama, $id_jurusan, $id_kelas, $id);
+        $stmt->bind_param("si", $nama, $id);
         return $stmt->execute();
     }
 
@@ -57,11 +50,10 @@ class Murid {
     //HITUNG TOTAL DATA
     public function countAll($keyword = null) {
         if ($keyword) {
-            $query = "SELECT COUNT(*) as total FROM $this->table
-                    WHERE nama LIKE ? OR jurusan LIKE ?";
+            $query = "SELECT COUNT(*) as total FROM $this->table WHERE nama LIKE ?";
             $stmt = $this->conn->prepare($query);
             $like = "%$keyword%";
-            $stmt->bind_param("ss", $like, $like);
+            $stmt->bind_param("s", $like);
             $stmt->execute();
             return $stmt->get_result()->fetch_assoc()['total'];
         } else {
@@ -73,12 +65,10 @@ class Murid {
     //GET DATA + SEARCH + LIMIT
     public function getData($start, $limit, $keyword = null) {
         if ($keyword) {
-            $query = "SELECT * FROM $this->table
-                    WHERE nama LIKE ? OR jurusan LIKE ?
-                    LIMIT ?, ?";
+            $query = "SELECT * FROM $this->table WHERE nama LIKE ? LIMIT ?, ?";
             $stmt = $this->conn->prepare($query);
             $like = "%$keyword%";
-            $stmt->bind_param("ssii", $like, $like, $start, $limit);
+            $stmt->bind_param("sii", $like, $start, $limit);
         } else {
             $query = "SELECT * FROM $this->table LIMIT ?, ?";
             $stmt = $this->conn->prepare($query);

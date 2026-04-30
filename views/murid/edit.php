@@ -29,11 +29,6 @@ $data = $murid->getById($id);
         <input type="text" name="nama" class="form-control" value="<?= $data['nama'] ?>" required>
     </div>
 
-    <div class="mb-3">
-        <label>Jurusan</label>
-        <input type="text" name="jurusan" class="form-control" value="<?= $data['jurusan'] ?>" required>
-    </div>
-
     <button type="submit" class="btn btn-primary">Update</button>
     <a href="index.php" class="btn btn-secondary">Kembali</a>
 </form>

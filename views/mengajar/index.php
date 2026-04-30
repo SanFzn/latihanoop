@@ -1,23 +1,22 @@
 <?php
 include '../../config/Database.php';
-include '../../models/Muri  d.php';
+include '../../models/Mengajar.php';
 include '../../config/Helper.php';
 
 $db = new Database();
 $conn = $db->connect();
 $keyword = get('search');
 
-$murid = new Murid($conn);
+$Mengajar = new Mengajar($conn);
 
 //Hitung total data
-$totalData = $murid->countAll($keyword);
+$totalData = $Mengajar->countAll($keyword);
 
 //Pagination
 $pagination = paginate($totalData, 10);
 
-
 //Ambil Data
-$data = $murid->getData($pagination['start'], $pagination['limit'], $keyword);
+$data = $Mengajar->getData($pagination['start'], $pagination['limit'], $keyword);
 
 //Ambil notifikasi
 $flash = getFlash();
@@ -26,7 +25,7 @@ $flash = getFlash();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Data Siswa</title>
+    <title>Data Mengajar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <style>
@@ -60,6 +59,7 @@ $flash = getFlash();
     </style>
 
 </head>
+<body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
@@ -77,8 +77,8 @@ $flash = getFlash();
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../../views/guru/index.php">
-                            <i class="bi bi-person-lines-fill me-1"></i>Data Guru
+                        <a class="nav-link" href="../../views/mengajar/index.php">
+                            <i class="bi bi-person-lines-fill me-1"></i>Data Mengajar
                         </a>
                     </li>
                     <li class="nav-item">
@@ -87,7 +87,7 @@ $flash = getFlash();
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../../auth/logout.php">
+                        <a class="nav-link" href="logout.php">
                             <i class="bi bi-box-arrow-right me-1"></i>Logout (<?= $_SESSION['username']; ?>)
                         </a>
                     </li>
@@ -98,7 +98,7 @@ $flash = getFlash();
 
     <!-- Main Content -->
     <div class="container main-container">
-        <h2>Data Murid</h2>
+        <h2>Data Mengajar</h2>
 
         <?php if($flash) : ?>
             <div class="alert alert-<?= $flash['tipe']; ?> alert-dismissible fade show" role="alert">
@@ -118,17 +118,23 @@ $flash = getFlash();
         <table class="table table-bordered">
             <tr>
                 <th>No</th>
-                <th>Nama</th>
+                <th>Guru</th>
+                <th>Mapel</th>
+                <th>Kelas</th>
+                <th>Jurusan</th>
                 <th>Aksi</th>
             </tr>
 
             <?php $no = 1; while($row = $data->fetch_assoc()) : ?>
             <tr>
                 <td><?= $no++ ?></td>
-                <td><?= $row['nama'] ?></td>
+                <td><?= $row['guru_id'] ?></td>
+                <td><?= $row['mapel_id'] ?? '-' ?></td>
+                <td><?= $row['kelas_id'] ?? '-' ?></td>
+                <td><?= $row['jurusan_id'] ?? '-' ?></td>
                 <td>
                     <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="../../proses/murid/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
+                    <a href="../../proses/mengajar/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
                 </td>
             </tr>
             <?php endwhile; ?>
@@ -139,8 +145,8 @@ $flash = getFlash();
 
         <?php for($i = 1; $i <= $pagination['total_page']; $i++) : ?>
             <li class="page-item <?= $i == $pagination['current'] ? 'active' : '' ?>">
-                <a class="page-link" 
-                href="?page=<?= $i ?>&search=<?= $keyword ?>">
+                <a class="page-link"
+                    href="?page=<?= $i ?>&search=<?= $keyword ?>">
                 <?= $i ?>
                 </a>
             </li>
@@ -148,7 +154,6 @@ $flash = getFlash();
 
         </ul>
         </nav>
-        <!-- <a href="../index.php" class="btn btn-secondary">Kembali</a> -->
     </div>
 
 

@@ -13,26 +13,6 @@
         <label>Nama</label>
         <input type="text" name="nama" class="form-control" required>
     </div>
-
-    <div class="mb-3">
-        <label>Jenis Kelamin</label>
-        <select name="jeniskelamin" class="form-control" required>
-            <option value="">Pilih Jenis Kelamin</option>
-            <option value="L">Laki-laki</option>
-            <option value="P">Perempuan</option>
-        </select>
-    </div>
-
-    <div class="mb-3">
-        <label>NIP</label>
-        <input type="text" name="nip" class="form-control" pattern="[0-9]+" inputmode="numeric" maxlength="18" title="Hanya angka" required>
-    </div>
-
-    <div class="mb-3">
-        <label>Mapel</label>
-        <input type="text" name="mapel" class="form-control" required>
-    </div>
-
     <div class="mb-3">
         <label>Jabatan</label>
         <input type="text" name="jabatan" class="form-control" required>

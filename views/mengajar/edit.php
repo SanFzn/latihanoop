@@ -28,10 +28,7 @@ $data = $guru->getById($id);
         <label>Nama</label>
         <input type="text" name="nama" class="form-control" value="<?= $data['nama'] ?>" required>
     </div>
-    <div class="mb-3">
-        <label>Jabatan</label>
-        <input type="text" name="jabatan" class="form-control" value="<?= $data['jabatan'] ?>" required>
-    </div>
+
     <button type="submit" class="btn btn-primary">Update</button>
     <a href="index.php" class="btn btn-secondary">Kembali</a>
 </form>

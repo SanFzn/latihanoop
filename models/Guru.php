@@ -10,32 +10,21 @@ class Guru {
 
     //READ
     public function getAll() {
-        $query = "SELECT g.*, m.nama AS nama_mapel 
-        FROM $this->table g
-        LEFT JOIN mapel m ON g.id_mapel = m.id";
+        $query = "SELECT * FROM $this->table ORDER BY nama, jabatan";
         return $this->conn->query($query);
     }
 
     //CREATE
-    public function create($nama, $jeniskelamin, $nip, $id_mapel, $jabatan) {
-        if (!in_array($jeniskelamin, ['L', 'P'])) {
-            return false;
-        }
-        if (!preg_match('/^[0-9]+$/', $nip)) {
-            return false;
-        }
-        $query = "INSERT INTO $this->table (nama, jenis_kelamin, nip, id_mapel, jabatan) VALUES (?, ?, ?, ?, ?)";
+    public function create($nama, $jabatan) {
+        $query = "INSERT INTO $this->table (nama, jabatan) VALUES (?, ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("ssiss", $nama, $jeniskelamin, $nip, $id_mapel, $jabatan);
+        $stmt->bind_param("ss", $nama, $jabatan);
         return $stmt->execute();
     }
 
     //GET BY ID
     public function getById($id) {
-        $query = "SELECT g.*, m.nama AS nama_mapel
-        FROM $this->table g
-        LEFT JOIN mapel m ON g.id_mapel = m.id
-        WHERE g.id=?";
+        $query = "SELECT * FROM $this->table WHERE id=?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $id);
         $stmt->execute();
@@ -43,16 +32,10 @@ class Guru {
     }
 
     //UPDATE
-    public function update($id, $nama, $jeniskelamin, $nip, $id_mapel, $jabatan) {
-        if (!in_array($jeniskelamin, ['L', 'P'])) {
-            return false;
-        }
-        if (!preg_match('/^[0-9]+$/', $nip)) {
-            return false;
-        }
-        $query = "UPDATE $this->table SET nama=?, jenis_kelamin=?, nip=?, id_mapel=?, jabatan=? WHERE id=?";
+    public function update($id, $nama, $jabatan) {
+        $query = "UPDATE $this->table SET nama=?, jabatan=? WHERE id=?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("ssissi", $nama, $jeniskelamin, $nip, $id_mapel, $jabatan, $id);
+        $stmt->bind_param("sssi", $nama, $jabatan, $id);
         return $stmt->execute();
     }
 
@@ -67,8 +50,7 @@ class Guru {
     //HITUNG TOTAL DATA
     public function countAll($keyword = null) {
         if ($keyword) {
-            $query = "SELECT COUNT(*) as total FROM $this->table
-                    WHERE nama LIKE ? OR mapel LIKE ?";
+            $query = "SELECT COUNT(*) as total FROM $this->table WHERE nama LIKE ? OR jabatan LIKE ?";
             $stmt = $this->conn->prepare($query);
             $like = "%$keyword%";
             $stmt->bind_param("ss", $like, $like);
@@ -83,9 +65,7 @@ class Guru {
     //GET DATA + SEARCH + LIMIT
     public function getData($start, $limit, $keyword = null) {
         if ($keyword) {
-            $query = "SELECT * FROM $this->table
-                    WHERE nama LIKE ? OR mapel LIKE ?
-                    LIMIT ?, ?";
+            $query = "SELECT * FROM $this->table WHERE nama LIKE ? OR jabatan LIKE ? LIMIT ?, ?";
             $stmt = $this->conn->prepare($query);
             $like = "%$keyword%";
             $stmt->bind_param("ssii", $like, $like, $start, $limit);

@@ -3,6 +3,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// DEFINE BASE URL
+define('BASE_URL', 'http://localhost/latihanoop/');
+
 // FLASH MESSAGE (Notifikasi Pesan)
 function setFlash($pesan, $tipe = 'success') {
     $_SESSION['flash'] = [

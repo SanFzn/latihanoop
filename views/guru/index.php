@@ -119,9 +119,6 @@ $flash = getFlash();
             <tr>
                 <th>No</th>
                 <th>Nama</th>
-                <th>Jenis Kelamin</th>
-                <th>NIP</th>
-                <th>Mapel</th>
                 <th>Jabatan</th>
                 <th>Aksi</th>
             </tr>
@@ -130,10 +127,7 @@ $flash = getFlash();
             <tr>
                 <td><?= $no++ ?></td>
                 <td><?= $row['nama'] ?></td>
-                <td><?= $row['jenis_kelamin'] == 'L' ? 'Laki-laki' : 'Perempuan' ?></td>
-                <td><?= $row['nip'] ?></td>
-                <td><?= $row['mapel'] ?></td>
-                <td><?= $row['jabatan'] ?></td>
+                <td><?= $row['jabatan'] ?? '-' ?></td>
                 <td>
                     <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
                     <a href="../../proses/guru/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>

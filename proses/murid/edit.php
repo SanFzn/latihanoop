@@ -10,9 +10,8 @@ $murid = new Murid($conn);
 
 $id = $_POST['id'];
 $nama = $_POST['nama'];
-$jurusan =$_POST['jurusan'];
 
-if ($murid->update($id, $nama, $jurusan)) {
+if ($murid->update($id, $nama)) {
     setFlash("Data berhasil diupdate", "success");
 } else {
     setFlash("Data gagal diupdate", "danger");
