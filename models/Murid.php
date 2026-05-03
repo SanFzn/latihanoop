@@ -15,10 +15,10 @@ class Murid {
     }
 
     //CREATE
-    public function create($nama) {
-        $query = "INSERT INTO $this->table (nama) VALUES (?)";
+    public function create($nama, $nisn, $ttl, $jenis_kelamin) {
+        $query = "INSERT INTO $this->table (nama, nisn, ttl, jenis_kelamin) VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("s", $nama);
+        $stmt->bind_param("siss", $nama, $nisn, $ttl, $jenis_kelamin);
         return $stmt->execute();
     }
 
@@ -33,10 +33,10 @@ class Murid {
 
 
     //UPDATE
-        public function update($id, $nama) {
-            $query = "UPDATE $this->table SET nama=? WHERE id=?";
+        public function update($id, $nama, $nisn, $ttl, $jenis_kelamin) {
+            $query = "UPDATE $this->table SET nama=?, nisn=?, ttl=?, jenis_kelamin=? WHERE id=?";
             $stmt = $this->conn->prepare($query);
-            $stmt->bind_param("si", $nama, $id);
+            $stmt->bind_param("sissi", $nama, $nisn, $ttl, $jenis_kelamin, $id);
             return $stmt->execute();
         }
 
@@ -53,10 +53,13 @@ class Murid {
         if ($keyword) {
             $query = "SELECT COUNT(*) as total
                 FROM $this->table
-                WHERE nama LIKE ?";
+                WHERE nama LIKE ?
+                OR nisn LIKE ?
+                OR ttl LIKE ?
+                OR jenis_kelamin LIKE ?";
             $stmt = $this->conn->prepare($query);
             $like = "%$keyword%";
-            $stmt->bind_param("s", $like);
+            $stmt->bind_param("ssss", $like, $like, $like, $like);
             $stmt->execute();
             return $stmt->get_result()->fetch_assoc()['total'];
         } else {
@@ -70,10 +73,13 @@ class Murid {
         if ($keyword) {
             $query = "SELECT * FROM $this->table
                 WHERE nama LIKE ?
+                OR nisn LIKE ?
+                OR ttl LIKE ?
+                OR jenis_kelamin LIKE ?
                 LIMIT ?, ?";
             $stmt = $this->conn->prepare($query);
             $like = "%$keyword%";
-            $stmt->bind_param("sii", $like, $start, $limit);
+            $stmt->bind_param("sssii", $like, $like, $like, $like, $start, $limit);
         } else {
             $query = "SELECT * FROM $this->table
                     LIMIT ?, ?";

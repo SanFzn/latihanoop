@@ -28,22 +28,7 @@ $data = $guru->getById($id);
         <label>Nama</label>
         <input type="text" name="nama" class="form-control" value="<?= htmlspecialchars($data['nama']) ?>" required>
     </div>
-    <div class="mb-3">
-        <label>NIP</label>
-        <input type="number" name="nip" class="form-control" value="<?= htmlspecialchars($data['nip']) ?>" required>
-    </div>
-    <div class="mb-3">
-        <label>Jenis Kelamin</label>
-        <select name="jenis_kelamin" class="form-select" required>
-            <option value="" disabled> Pilih jenis kelamin</option>
-            <option value="L" <?= $data['jenis_kelamin'] === 'L' ? 'selected' : '' ?>>Laki-laki</option>
-            <option value="P" <?= $data['jenis_kelamin'] === 'P' ? 'selected' : '' ?>>Perempuan</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label>Jabatan</label>
-        <input type="text" name="jabatan" class="form-control" value="<?= htmlspecialchars($data['jabatan']) ?>" required>
-    </div>
+
     <button type="submit" class="btn btn-primary">Update</button>
     <a href="index.php" class="btn btn-secondary">Kembali</a>
 </form>

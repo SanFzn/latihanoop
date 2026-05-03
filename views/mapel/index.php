@@ -119,9 +119,6 @@ $flash = getFlash();
             <tr>
                 <th>No</th>
                 <th>Nama</th>
-                <th>NIP</th>
-                <th>Jenis Kelamin</th>
-                <th>Jabatan</th>
                 <th>Aksi</th>
             </tr>
 
@@ -130,9 +127,6 @@ $flash = getFlash();
                 <tr>
                     <td><?= $no++ ?></td>
                     <td><?= htmlspecialchars($row['nama']) ?></td>
-                    <td><?= htmlspecialchars($row['nip']) ?></td>
-                    <td><?= $row['jenis_kelamin'] === 'L' ? 'Laki-laki' : 'Perempuan' ?></td>
-                    <td><?= htmlspecialchars($row['jabatan']) ?></td>
                     <td>
                         <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
                         <a href="../../proses/guru/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
@@ -141,7 +135,7 @@ $flash = getFlash();
                 <?php endwhile; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="6" class="text-center">Data tidak ditemukan.</td>
+                    <td colspan="3" class="text-center">Data tidak ditemukan.</td>
                 </tr>
             <?php endif; ?>
         </table>

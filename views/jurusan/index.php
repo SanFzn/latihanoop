@@ -1,22 +1,22 @@
 <?php
 include '../../config/Database.php';
-include '../../models/Guru.php';
+include '../../models/jurusan.php';
 include '../../config/Helper.php';
 
 $db = new Database();
 $conn = $db->connect();
 $keyword = get('search');
 
-$guru = new Guru($conn);
+$jurusan = new Jurusan($conn);
 
 //Hitung total data
-$totalData = $guru->countAll($keyword);
+$totalData = $jurusan->countAll($keyword);
 
 //Pagination
 $pagination = paginate($totalData, 10);
 
 //Ambil Data
-$data = $guru->getData($pagination['start'], $pagination['limit'], $keyword);
+$data = $jurusan->getData($pagination['start'], $pagination['limit'], $keyword);
 
 //Ambil notifikasi
 $flash = getFlash();
@@ -25,7 +25,7 @@ $flash = getFlash();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Data Guru</title>
+    <title>Data Jurusan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <style>
@@ -77,8 +77,8 @@ $flash = getFlash();
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../../views/guru/index.php">
-                            <i class="bi bi-person-lines-fill me-1"></i>Data Guru
+                        <a class="nav-link" href="../../views/jurusan/index.php">
+                            <i class="bi bi-building me-1"></i>Data Jurusan
                         </a>
                     </li>
                     <li class="nav-item">
@@ -98,7 +98,7 @@ $flash = getFlash();
 
     <!-- Main Content -->
     <div class="container main-container">
-        <h2>Data Guru</h2>
+        <h2>Data Jurusan</h2>
 
         <?php if($flash) : ?>
             <div class="alert alert-<?= $flash['tipe']; ?> alert-dismissible fade show" role="alert">
@@ -119,9 +119,6 @@ $flash = getFlash();
             <tr>
                 <th>No</th>
                 <th>Nama</th>
-                <th>NIP</th>
-                <th>Jenis Kelamin</th>
-                <th>Jabatan</th>
                 <th>Aksi</th>
             </tr>
 
@@ -130,18 +127,15 @@ $flash = getFlash();
                 <tr>
                     <td><?= $no++ ?></td>
                     <td><?= htmlspecialchars($row['nama']) ?></td>
-                    <td><?= htmlspecialchars($row['nip']) ?></td>
-                    <td><?= $row['jenis_kelamin'] === 'L' ? 'Laki-laki' : 'Perempuan' ?></td>
-                    <td><?= htmlspecialchars($row['jabatan']) ?></td>
                     <td>
                         <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="../../proses/guru/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
+                        <a href="../../proses/jurusan/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
                     </td>
                 </tr>
                 <?php endwhile; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="6" class="text-center">Data tidak ditemukan.</td>
+                    <td colspan="3" class="text-center">Data tidak ditemukan.</td>
                 </tr>
             <?php endif; ?>
         </table>

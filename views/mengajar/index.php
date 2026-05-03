@@ -1,22 +1,22 @@
 <?php
 include '../../config/Database.php';
-include '../../models/Guru.php';
+include '../../models/Mengajar.php';
 include '../../config/Helper.php';
 
 $db = new Database();
 $conn = $db->connect();
 $keyword = get('search');
 
-$guru = new Guru($conn);
+$mengajar = new Mengajar($conn);
 
 //Hitung total data
-$totalData = $guru->countAll($keyword);
+$totalData = $mengajar->countAll($keyword);
 
 //Pagination
 $pagination = paginate($totalData, 10);
 
 //Ambil Data
-$data = $guru->getData($pagination['start'], $pagination['limit'], $keyword);
+$data = $mengajar->getData($pagination['limit'], $pagination['start'], $keyword, "DESC" );
 
 //Ambil notifikasi
 $flash = getFlash();
@@ -25,7 +25,7 @@ $flash = getFlash();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Data Guru</title>
+    <title>Data Mengajar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <style>
@@ -98,7 +98,7 @@ $flash = getFlash();
 
     <!-- Main Content -->
     <div class="container main-container">
-        <h2>Data Guru</h2>
+        <h2>Data Mengajar</h2>
 
         <?php if($flash) : ?>
             <div class="alert alert-<?= $flash['tipe']; ?> alert-dismissible fade show" role="alert">
@@ -118,26 +118,24 @@ $flash = getFlash();
         <table class="table table-bordered">
             <tr>
                 <th>No</th>
-                <th>Nama</th>
-                <th>Jenis Kelamin</th>
-                <th>NIP</th>
+                <th>Guru</th>
                 <th>Mapel</th>
-                <th>Jabatan</th>
+                <th>Kelas</th>
+                <th>Jurusan</th>
                 <th>Aksi</th>
             </tr>
 
-            <?php $no = 1; if ($data->num_rows > 0) : ?>
+            <?php $i = 1; if ($data && $data->num_rows > 0) : ?>
                 <?php while($row = $data->fetch_assoc()) : ?>
                 <tr>
-                    <td><?= $no++ ?></td>
-                    <td><?= htmlspecialchars($row['nama']) ?></td>
-                    <td><?= $row['jenis_kelamin'] == 'L' ? 'Laki-laki' : 'Perempuan' ?></td>
-                    <td><?= htmlspecialchars($row['nip']) ?></td>
-                    <td><?= htmlspecialchars($row['nama_mapel'] ?? '-') ?></td>
-                    <td><?= htmlspecialchars($row['jabatan']) ?></td>
+                    <td><?= $i++ ?></td>
+                    <td><?= htmlspecialchars($row['guru']) ?></td>
+                    <td><?= htmlspecialchars($row['mapel']) ?></td>
+                    <td><?= htmlspecialchars($row['kelas']) ?></td>
+                    <td><?= htmlspecialchars($row['jurusan']) ?></td>
                     <td>
                         <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="../../proses/guru/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
+                        <a href="../../proses/mengajar/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
                     </td>
                 </tr>
                 <?php endwhile; ?>

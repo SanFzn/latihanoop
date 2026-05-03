@@ -1,25 +1,22 @@
 <?php
 include '../../config/Database.php';
-include '../../models/Guru.php';
+include '../../models/Jurusan.php';
 include '../../config/Helper.php';
 
 $db = new Database();
 $conn = $db->connect();
 
-$guru = new Guru($conn);
+$jurusan = new Jurusan($conn);
 
 $id = $_POST['id'];
 $nama = $_POST['nama'];
-$nip = $_POST['nip'];
-$jenis_kelamin = $_POST['jenis_kelamin'];
-$jabatan = $_POST['jabatan'];
 
-if ($guru->update($id, $nama, $nip, $jenis_kelamin, $jabatan)) {
+if ($jurusan->update($id, $nama)) {
     setFlash("Data berhasil diupdate", "success");
 } else {
     setFlash("Data gagal diupdate", "danger");
 }
 
-header("Location: ../../views/guru/index.php");
+header("Location: ../../views/jurusan/index.php");
 exit;
 ?>

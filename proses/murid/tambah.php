@@ -9,8 +9,11 @@ $conn = $db->connect();
 $murid = new Murid ($conn);
 
 $nama = $_POST['nama'];
+$nisn = $_POST['nisn'];
+$ttl = $_POST['ttl'];
+$jenis_kelamin = $_POST['jenis_kelamin'];
 
-if ($murid->create($nama)) {
+if ($murid->create($nama, $nisn, $ttl, $jenis_kelamin)) {
     setFlash("Data berhasil ditambahkan", "success");
 } else {
     setFlash("Data gagal ditambahkan", "danger");

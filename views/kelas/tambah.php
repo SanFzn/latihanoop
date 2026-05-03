@@ -13,22 +13,6 @@
         <label>Nama</label>
         <input type="text" name="nama" class="form-control" required>
     </div>
-    <div class="mb-3">
-        <label>NIP</label>
-        <input type="number" name="nip" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label>Jenis Kelamin</label>
-        <select name="jenis_kelamin" class="form-select" required>
-            <option value="" disabled selected>Pilih jenis kelamin</option>
-            <option value="L">Laki-laki</option>
-            <option value="P">Perempuan</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label>Jabatan</label>
-        <input type="text" name="jabatan" class="form-control" required>
-    </div>
 
     <button type="submit" class="btn btn-success">Simpan</button>
     <a href="index.php" class="btn btn-secondary">Kembali</a>

@@ -120,6 +120,9 @@ $flash = getFlash();
             <tr>
                 <th>No</th>
                 <th>Nama</th>
+                <th>NISN</th>
+                <th>Tempat, tanggal lahir</th>
+                <th>Jenis Kelamin</th>
                 <th>Aksi</th>
             </tr>
 
@@ -128,6 +131,9 @@ $flash = getFlash();
                 <tr>
                     <td><?= $no++ ?></td>
                     <td><?= htmlspecialchars($row['nama']) ?></td>
+                    <td><?= htmlspecialchars($row['nisn']) ?></td>
+                    <td><?= htmlspecialchars($row['ttl']) ?></td>
+                    <td><?= $row['jenis_kelamin'] === 'L' ? 'Laki-laki' : 'Perempuan' ?></td>
                     <td>
                         <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
                         <a href="../../proses/murid/hapus.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin?')">Hapus</a>
@@ -136,7 +142,7 @@ $flash = getFlash();
                 <?php endwhile; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="3" class="text-center">Data tidak ditemukan.</td>
+                    <td colspan="6" class="text-center">Data tidak ditemukan.</td>
                 </tr>
             <?php endif; ?>
         </table>
@@ -146,7 +152,7 @@ $flash = getFlash();
 
         <?php for($i = 1; $i <= $pagination['total_page']; $i++) : ?>
             <li class="page-item <?= $i == $pagination['current'] ? 'active' : '' ?>">
-                <a class="page-link" 
+                <a class="page-link"
                 href="?page=<?= $i ?>&search=<?= urlencode($keyword) ?>">
                 <?= $i ?>
                 </a>

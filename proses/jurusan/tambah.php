@@ -1,24 +1,21 @@
 <?php
 include '../../config/Database.php';
-include '../../models/Guru.php';
+include '../../models/Jurusan.php';
 include '../../config/Helper.php';
 
 $db = new Database();
 $conn = $db->connect();
 
-$guru = new Guru($conn);
+$jurusan = new jurusan($conn);
 
 $nama = $_POST['nama'] ?? null;
-$nip = $_POST['nip'];
-$jenis_kelamin = $_POST['jenis_kelamin'];
-$jabatan = $_POST['jabatan'];
 
-if ($guru->create($nama, $nip, $jenis_kelamin, $jabatan)) {
+if ($jurusan->create($nama)) {
     setFlash("Data berhasil ditambahkan", "success");
 } else {
     setFlash("Data gagal ditambahkan", "danger");
 }
 
-header("Location: ../../views/guru/index.php");
+header("Location: ../../views/jurusan/index.php");
 exit;
 ?>

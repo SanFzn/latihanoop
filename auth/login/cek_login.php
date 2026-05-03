@@ -20,7 +20,7 @@ if ($data) {
     $_SESSION['username'] = $data['username'];
     echo "<script>
             alert('Login Berhasil!');
-            window.location.href='../index.php';
+            window.location.href='../../views/index.php';
             </script>";
 } else {
     echo "<script>
