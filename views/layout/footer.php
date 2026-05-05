@@ -3,7 +3,7 @@
     <!-- FOOTER -->
     <footer class="bg-light text-center py-3 mt-4 border-top">
         <small class="text-muted">
-            © <?= date('Y'); ?> Website Sekolah | All Rights Reserved
+            © <?= date('Y'); ?> Website ICANACIN | All Rights Reserved
         </small>
     </footer>
 

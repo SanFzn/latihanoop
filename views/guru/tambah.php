@@ -15,7 +15,7 @@
     </div>
     <div class="mb-3">
         <label>NIP</label>
-        <input type="number" name="nip" class="form-control" required>
+        <input type="number" minlength="18" maxlength="18" name="nip" class="form-control" required>
     </div>
     <div class="mb-3">
         <label>Jenis Kelamin</label>

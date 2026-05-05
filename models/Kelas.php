@@ -46,5 +46,42 @@ class Kelas {
         $stmt->bind_param("i", $id);
         return $stmt->execute();
     }
+
+    //HITUNG TOTAL DATA
+    public function countAll($keyword = null) {
+        if ($keyword) {
+            $query = "SELECT COUNT(*) as total
+                FROM $this->table
+                WHERE nama LIKE ?";
+            $stmt = $this->conn->prepare($query);
+            $like = "%$keyword%";
+            $stmt->bind_param("s", $like);
+            $stmt->execute();
+            return $stmt->get_result()->fetch_assoc()['total'];
+        } else {
+            $query = "SELECT COUNT(*) as total FROM $this->table";
+            return $this->conn->query($query)->fetch_assoc()['total'];
+        }
+    }
+
+    //GET DATA + SEARCH + LIMIT
+    public function getData($start, $limit, $keyword = null) {
+        if ($keyword) {
+            $query = "SELECT * FROM $this->table
+                WHERE nama LIKE ?
+                LIMIT ?, ?";
+            $stmt = $this->conn->prepare($query);
+            $like = "%$keyword%";
+            $stmt->bind_param("sii", $like, $start, $limit);
+        } else {
+            $query = "SELECT * FROM $this->table
+                    LIMIT ?, ?";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param("ii", $start, $limit);
+        }
+
+        $stmt->execute();
+        return $stmt->get_result();
+    }
 }
 ?>

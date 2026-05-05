@@ -52,13 +52,10 @@ class Jurusan {
         if ($keyword) {
             $query = "SELECT COUNT(*) as total
                 FROM $this->table
-                WHERE nama LIKE ?
-                OR nip LIKE ?
-                OR jenis_kelamin LIKE ?
-                OR jabatan LIKE ?";
+                WHERE nama LIKE ?";
             $stmt = $this->conn->prepare($query);
             $like = "%$keyword%";
-            $stmt->bind_param("ssss", $like, $like, $like, $like);
+            $stmt->bind_param("s", $like);
             $stmt->execute();
             return $stmt->get_result()->fetch_assoc()['total'];
         } else {
@@ -72,13 +69,10 @@ class Jurusan {
         if ($keyword) {
             $query = "SELECT * FROM $this->table
                 WHERE nama LIKE ?
-                OR nip LIKE ?
-                OR jenis_kelamin LIKE ?
-                OR jabatan LIKE ?
                 LIMIT ?, ?";
             $stmt = $this->conn->prepare($query);
             $like = "%$keyword%";
-            $stmt->bind_param("sssii", $like, $like, $like, $like, $start, $limit);
+            $stmt->bind_param("sii", $like, $start, $limit);
         } else {
             $query = "SELECT * FROM $this->table
                     LIMIT ?, ?";
